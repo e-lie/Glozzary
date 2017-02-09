@@ -1,17 +1,11 @@
-from sqlalchemy import create_engine
+"""
+    script to test model with standalone sqlalchemy rather than flask_sqlalchemy etc.
+"""
 
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, Table
 from sqlalchemy.ext.declarative import declarative_base
-
-
-#class Translation(Base):
-#    __tablename__ = 'translations'
-#    source_id = Column(Integer, ForeignKey('words.id'), primary_key=True)
-#    dest_id = Column(Integer, ForeignKey('words.id'), primary_key=True)
-#
-#    def __repr__(self):
-#        return "<Translation (source_id='%d', dest_id='%d')>" % (self.source_id, self.dest_id)
 
 Base = declarative_base()
 translations = Table("translations", Base.metadata,
@@ -27,7 +21,6 @@ class Lexical(Base):
     language_id = Column(Integer, ForeignKey('languages.id'), nullable=False)
     language = relationship("Language")
 
-    #translations = relationship(Translation, backref="sources", primaryjoin=id==Translation.dest_id)
     translations = relationship("Lexical",
                         secondary="translations",
                         primaryjoin="Lexical.id==translations.c.source_lexical_id",
@@ -39,17 +32,12 @@ class Lexical(Base):
        return "<Word (content='%s')>" % (self.content)
 
 
+
 class Language(Base):
     __tablename__ = 'languages'
     id = Column(Integer, primary_key=True)
     name = Column(String)
     abbr = Column(String)
-
-
-
-#def addTranslation(sourceLexical, destLexical):
-#    sourceLexical.translations.append(destLexical)
-#    destLexical.translations.append(sourceLexical)
 
 
 if __name__ == "__main__":
