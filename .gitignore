@@ -56,4 +56,7 @@ docs/_build/
 #Vim swap files
 *.swp
 
+#CSV import files
+*.csv
+
 *.DS_Store

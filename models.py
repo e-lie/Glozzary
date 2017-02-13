@@ -29,3 +29,7 @@ class Language(db.Model):
     name = db.Column(db.Unicode)
     abbr = db.Column(db.Unicode)
 
+    def __init__(self, name, abbr):
+        self.name = name
+        self.abbr = abbr
+
