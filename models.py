@@ -19,6 +19,7 @@ class Lexical(db.Model):
                         backref="sources"
     )
 
+
     def __repr__(self):
        return "<Word (content='%s')>" % (self.content)
 
