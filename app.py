@@ -10,12 +10,6 @@ db = SQLAlchemy(app)
 
 from models import *
 
-
-@app.route('/')
-def hello():
-    return "Hello World!"
-
-
 @app.route('/csv-import/<csvname>')
 def import_data(csvname):
 
